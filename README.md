@@ -177,10 +177,13 @@ Follow these steps to run the code and calculate the SEAT (Sentence Embedding As
            "examples": ["negative word 1", "negative word 2"]
        }
    }
-2. Installing Dependencies:
-   ```bash
-   pip install sentence-transformers numpy scipy
    
 4. Running SEAT:
-  ```bash
-  python seat.py
+   ```bash
+   python seat.py
+
+## **Installing Dependencies**
+
+Installing Dependencies:
+   ```bash
+   pip install sentence-transformers numpy scipy
