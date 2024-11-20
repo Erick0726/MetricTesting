@@ -117,9 +117,9 @@ The **Social Group Substitution Test** identifies bias by substituting terms rel
 
 ---
 
-## **Co-occurrence Bias Test**
+## **Co-Occurrence Bias Test**
 
-The **Co-occurrence Bias Test** identifies bias by examining the co-occurrence of gendered terms and occupation-related terms in a corpus.
+The **Co-Occurrence Bias Test** identifies bias by examining the co-occurrence of gendered terms and occupation-related terms in a corpus.
 
 ### **Steps**
 1. Parse a corpus to find sentences containing gendered and occupation terms.
