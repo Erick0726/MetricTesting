@@ -46,8 +46,7 @@ This project provides implementations and methodologies for evaluating bias in n
   - [HONEST](#honest)
   - [Gender Polarity](#gender-polarity)
 - [Usage](#usage)
-- [Setup Instructions](#setup-instructions)
-- [Results](#results)
+- [Installing Dependencies](#installing-dependencies)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -178,7 +177,7 @@ Follow these steps to run the code and calculate the SEAT (Sentence Embedding As
        }
    }
    
-4. Running SEAT:
+2. Running SEAT:
    ```bash
    python seat.py
 
@@ -186,4 +185,9 @@ Follow these steps to run the code and calculate the SEAT (Sentence Embedding As
 
 Installing Dependencies:
    ```bash
-   pip install sentence-transformers numpy scipy
+    pip install sentence-transformers numpy scipy
+```
+## **Contributing**
+ Erick Pelaez Puig, Valeria Giraldo, Jeslyn Chacko, Elnaz Toreihi.
+
+
