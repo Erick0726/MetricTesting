@@ -2,6 +2,7 @@ import numpy as np
 import json
 from sklearn.metrics.pairwise import cosine_similarity
 from gensim.models import KeyedVectors
+import gensim.downloader
 
 def weat_score(file_name):
     f = open(file_name)
@@ -36,10 +37,13 @@ def weat_score(file_name):
     weat_score_glove = sum([s(a.lower(), X, Y, word_vectors) for a in A]) - sum ([s(b.lower(), X, Y, word_vectors) for b in B])
     print(f'WEAT score for GloVe ({data["targ1"]["category"]}/{data["targ2"]["category"]}/{data["attr1"]["category"]}/{data["attr2"]["category"]}): {weat_score_glove}')
 
-    model = KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
-    weat_score_word2vec = sum([s(a.lower(), X, Y, model) for a in A]) - sum ([s(b.lower(), X, Y, model) for b in B])
-    print(f'WEAT score for Word2Vec ({data["targ1"]["category"]}/{data["targ2"]["category"]}/{data["attr1"]["category"]}/{data["attr2"]["category"]}): {weat_score_word2vec}')
+    #To run the test for the Word2Vec metric, download the file from this link and put the GoogleNews-vectors-negative300.bin
+    #file in the same folder as the weat.py file:
+    #https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/view?usp=sharing&resourcekey=0-wjGZdNAUop6WykTtMip30g
+    #model = KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
+    #weat_score_word2vec = sum([s(a.lower(), X, Y, model) for a in A]) - sum ([s(b.lower(), X, Y, model) for b in B])
+    #print(f'WEAT score for Word2Vec ({data["targ1"]["category"]}/{data["targ2"]["category"]}/{data["attr1"]["category"]}/{data["attr2"]["category"]}): {weat_score_word2vec}')
 
-weat_score("tests/weat6b.jsonl")
-weat_score("tests/weat7.jsonl")
-weat_score("tests/weat8.jsonl")
+weat_score("tests/weat1.jsonl")
+weat_score("tests/weat2.jsonl")
+weat_score("tests/weat3.jsonl")
