@@ -27,7 +27,8 @@ def weat_score(file_name):
                 word_v[word] = vector
         return word_v
 
-    word_vectors = load_word_vectors_glove('glove.6B.50d.txt')
+    #https://drive.google.com/file/d/1L3_k2SwdAyB3YPzlnzDrscjOjcv9jj0E/view?usp=sharing
+    word_vectors = load_word_vectors_glove('data/glove.6B.50d.txt')
 
     def s(w, X, Y, vectors):
         sim_X = np.mean([cosine_similarity(vectors[w].reshape(1,-1), vectors[x].reshape(1,-1)) for x in X])
@@ -38,9 +39,9 @@ def weat_score(file_name):
     print(f'WEAT score for GloVe ({data["targ1"]["category"]}/{data["targ2"]["category"]}/{data["attr1"]["category"]}/{data["attr2"]["category"]}): {weat_score_glove}')
 
     #To run the test for the Word2Vec model, download the file from this link and put the GoogleNews-vectors-negative300.bin
-    #file in the same folder as the weat.py file:
+    #file in the 'data' folder:
     #https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/view?usp=sharing&resourcekey=0-wjGZdNAUop6WykTtMip30g
-    #model = KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
+    #model = KeyedVectors.load_word2vec_format('data/GoogleNews-vectors-negative300.bin', binary=True)
     #weat_score_word2vec = sum([s(a.lower(), X, Y, model) for a in A]) - sum ([s(b.lower(), X, Y, model) for b in B])
     #print(f'WEAT score for Word2Vec ({data["targ1"]["category"]}/{data["targ2"]["category"]}/{data["attr1"]["category"]}/{data["attr2"]["category"]}): {weat_score_word2vec}')
 
