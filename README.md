@@ -85,6 +85,19 @@ The **SEAT metric** measures biases in sentence embeddings by adapting the Impli
 4. Conduct statistical tests (e.g., t-tests) to determine bias significance.
 
 ---
+## **CEAT: Contextual Embedding Association Test**
+The ** CEAT metric** evaluates biases by analyzing the associations between demographic terms and attributes in contextualized embeddings.
+
+### **Steps**
+1. Prepare target (demographic) and attribute word sets (e.g., gendered names and career/family terms).
+2. Generate word embeddings using a pre-trained language model.
+3.Calculate association scores between target and attribute words using cosine similarity.
+4. Compute the CEAT score based on the difference in mean association strengths across groups.
+5.Conduct statistical tests (e.g., t-tests) to assess the significance of observed differences.
+
+---
+
+
 
 ## **DisCo: Distributional Correspondence Test**
 
