@@ -69,7 +69,7 @@ The **WEAT metric** measures bias by taking two sets of target words and two set
 3. Calculate association scores using cosine similarity.
 4. Calculate WEAT score with the difference of summation for every association for each target word.
 
-To run the WEAT test for the Word2Vec metric, download the file from this link and put the GoogleNews-vectors-negative300.bin file in the same folder as the weat.py file:
+To run the WEAT test for the Word2Vec model, download the file from this link and put the GoogleNews-vectors-negative300.bin file in the same folder as the weat.py file:
 https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/view?usp=sharing&resourcekey=0-wjGZdNAUop6WykTtMip30g
 
 ---
