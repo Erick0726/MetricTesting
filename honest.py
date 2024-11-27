@@ -1,7 +1,7 @@
 import torch
 import pandas as pd
 from transformers import BertTokenizer, BertForMaskedLM, GPT2LMHeadModel , GPT2Tokenizer
-hurtlex = pd.read_csv('hurtlex_EN.tsv', sep='\t')
+hurtlex = pd.read_csv('data/hurtlex_EN.tsv', sep='\t')
 words = hurtlex["lemma"]
 
 model_name = "bert-base-uncased"
