@@ -86,7 +86,7 @@ The **SEAT metric** measures biases in sentence embeddings by adapting the Impli
 
 ---
 ## **CEAT: Contextual Embedding Association Test**
-The ** CEAT metric** evaluates biases by analyzing the associations between demographic terms and attributes in contextualized embeddings.
+The  CEAT metric evaluates biases by analyzing the associations between demographic terms and attributes in contextualized embeddings.
 
 ### **Steps**
 1. Prepare target (demographic) and attribute word sets (e.g., gendered names and career/family terms).
