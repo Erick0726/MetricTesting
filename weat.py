@@ -37,7 +37,7 @@ def weat_score(file_name):
     weat_score_glove = sum([s(a.lower(), X, Y, word_vectors) for a in A]) - sum ([s(b.lower(), X, Y, word_vectors) for b in B])
     print(f'WEAT score for GloVe ({data["targ1"]["category"]}/{data["targ2"]["category"]}/{data["attr1"]["category"]}/{data["attr2"]["category"]}): {weat_score_glove}')
 
-    #To run the test for the Word2Vec metric, download the file from this link and put the GoogleNews-vectors-negative300.bin
+    #To run the test for the Word2Vec model, download the file from this link and put the GoogleNews-vectors-negative300.bin
     #file in the same folder as the weat.py file:
     #https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/view?usp=sharing&resourcekey=0-wjGZdNAUop6WykTtMip30g
     #model = KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True)
