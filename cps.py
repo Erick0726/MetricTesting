@@ -13,7 +13,7 @@ model3_name = 'albert-base-v2'
 model3 = AutoModelForMaskedLM.from_pretrained(model3_name)
 tokenizer3 = AutoTokenizer.from_pretrained(model3_name)
 
-crows_pairs_file = 'crows_pairs_anonymized.csv'
+crows_pairs_file = 'data/crows_pairs_anonymized.csv'
 crows_pairs = pd.read_csv(crows_pairs_file)
 
 total = len(crows_pairs)
