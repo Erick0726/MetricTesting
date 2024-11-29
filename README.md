@@ -43,6 +43,7 @@ This project provides implementations and methodologies for evaluating bias in n
   - [Co-occurrence Bias Test](#co-occurrence-bias-test)
   - [Demographic Representation](#demographic-representation)
   - [Stereotypical Association](#stereotypical-association)
+  - [Score Parity](#score-parity)
   - [Counterfactual Sentiment](#counterfactual-sentiment)
   - [HONEST](#honest)
   - [Gender Polarity](#gender-polarity)
