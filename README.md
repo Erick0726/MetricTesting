@@ -109,6 +109,19 @@ The **DisCo metric** evaluates biases based on the contextual distribution of te
 3. Measure divergence between distributions using metrics like KL divergence or Wasserstein distance.
 
 ---
+## **LBPS: Likelihood-Based Parity Score**
+The **LBPS metric** evaluates biases by analyzing the likelihoods assigned to gender-associated terms in masked language modeling tasks.
+
+## **Steps**
+
+1. Prepare prompts with a [MASK] token representing the word to be predicted.
+2. Define male- and female-associated terms (e.g., "man," "woman," "he," "she").
+3. Use a pre-trained language model to generate logits for the [MASK] token.
+4. Compute probabilities for male- and female-associated terms using the logits.
+5. Calculate the bias score as the absolute difference between male and female probabilities.
+
+
+---
 
 ## **CrowS-Pairs Score (CPS)**
 
