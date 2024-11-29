@@ -19,9 +19,10 @@ This project provides implementations and methodologies for evaluating bias in n
 10. **Co-occurrence Bias Test**
 11. **Demographic Representation**
 12. **Stereotypical Association**
-13. **Counterfactual Sentiment**
-14. **HONEST**
-15. **Gender Polarity**
+13. **Score Parity**
+14. **Counterfactual Sentiment**
+15. **HONEST**
+16. **Gender Polarity**
 
 ---
 
@@ -180,6 +181,18 @@ The **Stereotypical Association metric** measures bias by checking if a model is
 2. Generate text using a model.
 3. Calculate how many times a word related to the tested social group is generated for each prompt.
 4. Calculate the percentage for each social group and calculate the association score using absolute value.
+
+---
+## **Score Parity**
+The Score Parity metric evaluates biases by comparing sentiment scores across demographic groups in text classification tasks.
+
+### **Steps**
+
+1. Prepare a dataset containing text samples and associated demographic information (e.g., "male," "female").
+2. Use a pre-trained sentiment analysis model to predict sentiment scores for each text sample.
+3. Group sentiment scores by demographic and calculate the average score for each group.
+4. Perform statistical tests (e.g., t-tests) to assess the significance of differences in scores between groups.
+5. Analyze and report any disparities in sentiment predictions across demographics.
 
 ---
 
