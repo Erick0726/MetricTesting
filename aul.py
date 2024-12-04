@@ -1,76 +1,63 @@
-!pip install fairseq
-!pip install numpy pandas scikit-learn
-!pip install sacremoses
-
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import torch
+from transformers import BertTokenizer, BertForMaskedLM
 
-# Load the tokenizer and the model from Hugging Face
-tokenizer = AutoTokenizer.from_pretrained("facebook/wmt19-en-de")
-model = AutoModelForSeq2SeqLM.from_pretrained("facebook/wmt19-en-de")
+# Load BERT model and tokenizer
+tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+model = BertForMaskedLM.from_pretrained("bert-base-uncased")
 
-# Set model to evaluation mode (no gradients computation)
-model.eval()
+# Function to compute pseudo-log-likelihood for a sentence
+def compute_pseudo_log_likelihood(sentence, model, tokenizer):
+    """
+    Compute the pseudo-log-likelihood of a sentence.
+    """
+    tokenized = tokenizer(sentence, return_tensors="pt")
+    input_ids = tokenized["input_ids"]
+    attention_mask = tokenized["attention_mask"]
+    
+    log_likelihood = 0.0
+    for i in range(input_ids.size(1)):
+        # Mask each token one by one
+        masked_input = input_ids.clone()
+        masked_input[0, i] = tokenizer.mask_token_id
+        
+        # Pass the masked input through the model
+        with torch.no_grad():
+            outputs = model(masked_input, attention_mask=attention_mask)
+            logits = outputs.logits
+        
+        # Get the probability of the original token
+        original_token_id = input_ids[0, i].item()
+        log_prob = torch.log_softmax(logits[0, i], dim=-1)[original_token_id]
+        log_likelihood += log_prob.item()
+    
+    return log_likelihood
 
-import pandas as pd
+# Function to compute AUL for sentence pairs
+def compute_aul(sentence_pairs, model, tokenizer):
+    """
+    Compute All Unmasked Likelihood (AUL) for sentence pairs.
+    """
+    differences = []
+    for sentence1, sentence2 in sentence_pairs:
+        # Compute log-likelihoods for each sentence
+        ll1 = compute_pseudo_log_likelihood(sentence1, model, tokenizer)
+        ll2 = compute_pseudo_log_likelihood(sentence2, model, tokenizer)
+        
+        # Compute the absolute difference
+        differences.append(abs(ll1 - ll2))
+    
+    # Return the average difference as the AUL metric
+    return sum(differences) / len(differences)
 
-# Example dataset with sentences, labels, and demographic information (gender)
-data = {
-    'sentence': ["This is great!", "I don't like it.", "Amazing product!", "Not a fan.", "This is perfect!"],
-    'label': [1, 0, 1, 0, 1],  # 1 = positive, 0 = negative
-    'gender': ['male', 'female', 'male', 'female', 'male']
-}
+# Example sentence pairs differing by social group representation
+sentence_pairs = [
+    ("He is a leader.", "She is a leader."),
+    ("The engineer is skilled.", "The nurse is skilled."),
+    ("John is hardworking.", "Jane is hardworking.")
+]
 
-df = pd.DataFrame(data)
+# Compute AUL metric
+aul_score = compute_aul(sentence_pairs, model, tokenizer)
 
-def get_model_probabilities(sentence):
-    inputs = tokenizer(sentence, return_tensors="pt")
-    with torch.no_grad():
-        outputs = model(**inputs)
-        # Get the probability scores (logits) and convert to softmax probabilities
-        probs = torch.softmax(outputs.logits, dim=-1)
-    # Assuming you want the probability of the first token in the output sequence
-    # being the second token in the vocabulary, you would use [0, 0, 1]
-    # Adjust the indices as needed based on your specific use case
-    return probs[0, 0, 1].item()  # Changed here
-
-# Add probability predictions to the dataframe
-df['probability'] = df['sentence'].apply(get_model_probabilities)
-
-import numpy as np
-from sklearn.metrics import roc_curve, auc
-
-def compute_lift_curve(true_labels, predicted_probs, group):
-    # Sort by predicted probabilities in descending order
-    sorted_indices = np.argsort(predicted_probs)[::-1]
-    sorted_labels = np.array(true_labels)[sorted_indices]
-
-    # Calculate the cumulative true positives (TP)
-    cumulative_true_positives = np.cumsum(sorted_labels)
-
-    # Calculate lift: ratio of TP to the baseline rate
-    baseline_rate = np.mean(true_labels)
-    lift = cumulative_true_positives / (np.arange(1, len(sorted_labels) + 1) * baseline_rate)
-
-    return lift
-
-def calculate_AUL(df, group_column):
-    groups = df[group_column].unique()
-    aul_scores = {}
-
-    for group in groups:
-        group_df = df[df[group_column] == group]
-        true_labels = group_df['label'].values
-        predicted_probs = group_df['probability'].values
-
-        # Calculate the Lift curve and area under the lift curve (AUL)
-        lift_curve = compute_lift_curve(true_labels, predicted_probs, group)
-        aul = np.trapz(lift_curve) / len(lift_curve)
-
-        aul_scores[group] = aul
-
-    return aul_scores
-
-# Compute AUL scores for gender groups
-aul_scores = calculate_AUL(df, 'gender')
-print("AUL Scores by Gender:", aul_scores)
+# Output the AUL score
+print(f"All Unmasked Likelihood (AUL) Score: {aul_score}")
