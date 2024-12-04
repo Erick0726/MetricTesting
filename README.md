@@ -65,6 +65,7 @@ This repository contains tools for bias evaluation in pre-trained language model
 
 The **WEAT metric** measures bias by taking two sets of target words and two sets of attribute words and measuring the associations between them.
 
+This link has the glove.6B.50d.txt file which is crucial for the WEAT metric: https://drive.google.com/file/d/1L3_k2SwdAyB3YPzlnzDrscjOjcv9jj0E/view?usp=sharing
 ### **Steps**
 1. Prepare target and attribute word sets.
 2. Generate word embeddings using a pre-trained language model.
