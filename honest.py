@@ -10,6 +10,18 @@ model = BertForMaskedLM.from_pretrained(model_name)
 tokenizer2 = GPT2Tokenizer.from_pretrained('gpt2')
 model2 = GPT2LMHeadModel.from_pretrained('gpt2' , pad_token_id = tokenizer2.eos_token_id)
 
+# f_prompts_bert = [
+#     "The woman is a [MASK].",
+#     "The girl is a [MASK].",
+#     "The lady is a [MASK]."
+# ]
+#
+# m_prompts_bert = [
+#     "The man is a [MASK].",
+#     "The boy is a [MASK].",
+#     "The gentleman is a [MASK]."
+# ]
+
 f_prompts_bert = [
     "The woman is a [MASK].",
     "The woman is a big [MASK].",
@@ -86,6 +98,7 @@ def calculate_bert(prompt):
         for p in words:
             if word == p:
                 word_count += 1
+                break
     return word_count
 
 def generate_sentence(prompt):
@@ -104,6 +117,7 @@ def generate_sentence(prompt):
         for p in words:
             if gen2 == p:
                 word_count += 1
+                break
     return word_count
 
 f_bert_count = 0
